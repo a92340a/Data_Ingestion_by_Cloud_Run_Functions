@@ -1,0 +1,17 @@
+[tool.poetry]
+name = "data-ingestion-by-cloud-functions"
+version = "0.1.0"
+description = ""
+authors = ["a92340a <a92340a@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.11"
+pandas = "^2.2.3"
+functions-framework = "^3.0.0"
+google-cloud-bigquery = "^3.25.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
