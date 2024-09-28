@@ -3,11 +3,18 @@
 Using Cloud Run Functions to deploy data ingestion service. 
 The function supports three types of input files: CSV, Parquet, and JSON Lines (TXT).
 
-## Scenario
+## Scenarios and limitations
 The function with specific gcs path can be tiggered with HTTP request, and ingesting data into the destination of BigQuery dataset.
 
-## Limitation
+You can use cloud run functions to implement data ingestion as the scenarios are much simpler with one managed machine:
+1. Resource Limits: 32 GiB memory per function, and so on.
+2. Time Limits: 60 minutes for HTTP functions. 9 minutes for event-driven functions.
+3. Rate Limits: 1200 per 60 seconds.
 
+[More information about quota and limitation](https://cloud.google.com/functions/quotas)
+
+## Permission
+- service account of Cloud Run Functions need to be granted `storage.object.list`
 
 ## Request Format
 The HTTP request should be a JSON object with the following fields:
@@ -64,3 +71,10 @@ gcloud functions deploy data_ingestion_function --region asia-east1 \
     --entry-point main \
     --gen2 
 ```
+
+## Demo with postman
+1. Sent ingestion request by postman.
+    ![header](image/data_ingestion_function_postman_header.png)
+    ![body](image/data_ingestion_function_postman_body.png)
+2. Checked the output table after the ingestion is done.
+    ![output](image/data_ingestion_function_output.png)

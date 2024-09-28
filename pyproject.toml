@@ -10,6 +10,9 @@ python = "^3.11"
 pandas = "^2.2.3"
 functions-framework = "^3.0.0"
 google-cloud-bigquery = "^3.25.0"
+fsspec = "^2024.9.0"
+gcsfs = "^2024.9.0.post1"
+pyarrow = "^17.0.0"
 
 
 [build-system]

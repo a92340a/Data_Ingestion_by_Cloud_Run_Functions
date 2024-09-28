@@ -18,14 +18,14 @@ logger = logging.getLogger(__name__)
 def read_data(filepath):
     # read data
     if filepath.endswith(".csv"):
-        df = pd.read_csv(input)
-    elif filepath.endswith(".json") or input.endswith(".txt"):
-        df = pd.read_json(input, lines=True)
+        df = pd.read_csv(filepath)
+    elif filepath.endswith(".json") or filepath.endswith(".txt"):
+        df = pd.read_json(filepath, lines=True)
     elif filepath.endswith(".parquet"):
-        df = pd.read_parquet(input)
+        df = pd.read_parquet(filepath)
     else:
         logging.warning("No corresponding input types!")
-    logging.info(f"Successfully Read data from {input}.")
+    logging.info(f"Successfully Read data from {filepath}.")
 
     # transform data into string
     df.astype("str")
@@ -50,7 +50,7 @@ def main(request):
 
     # parse requests
     if request_json:
-        input = request_json["input"]
+        filepath = request_json["input"]
         project_id = request_json["project_id"]
         dataset = request_json["dataset"]
         table = request_json["table"]
@@ -59,7 +59,7 @@ def main(request):
         logger.error("No valid json request!")
 
     # read data
-    df = read_data(input)
+    df = read_data(filepath)
 
     # load data
     table_id = f"{project_id}.{dataset}.{table}"
