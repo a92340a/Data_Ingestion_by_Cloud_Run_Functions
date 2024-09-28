@@ -13,7 +13,7 @@ You can use cloud run functions to implement data ingestion as the scenarios are
 [More information about quota and limitation](https://cloud.google.com/functions/quotas)
 
 ## Architecture
-
+![arch](image/data_ingestion_function_architecture.jpg)
 
 ## Permission
 - service account of Cloud Run Functions need to be granted `storage.object.list`

@@ -6,6 +6,10 @@ steps:
       - deploy
       - data_ingestion_function
       - --region=asia-east1
-      - --source=.
-      - --trigger-http
       - --runtime=python311
+      - --trigger-http
+      - --allow-unauthenticated
+      - --entry-point=main
+      - --source=.
+      - --memory=512M
+      - --gen2
