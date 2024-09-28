@@ -8,10 +8,12 @@ The function with specific gcs path can be tiggered with HTTP request, and inges
 
 You can use cloud run functions to implement data ingestion as the scenarios are much simpler with one managed machine:
 1. Resource Limits: 32 GiB memory per function, and so on.
-2. Time Limits: 60 minutes for HTTP functions. 9 minutes for event-driven functions.
-3. Rate Limits: 1200 per 60 seconds.
+2. Time Limits: 60 minutes for HTTP functions, and 9 minutes for event-driven functions.
 
 [More information about quota and limitation](https://cloud.google.com/functions/quotas)
+
+## Architecture
+
 
 ## Permission
 - service account of Cloud Run Functions need to be granted `storage.object.list`
@@ -63,18 +65,21 @@ If the input file is a Parquet file, the function reads the file using pandas.re
 If the input file is a JSON Lines file (with a .txt extension), the function reads the file using pandas.read_json with the lines=True parameter.
 
 ## Deployment
-```
-gcloud functions deploy data_ingestion_function --region asia-east1 \
-    --runtime python311 \
-    --trigger-http \
-    --allow-unauthenticated \
-    --entry-point main \
-    --gen2 
-```
+1. Manual deployment
+    ```
+    gcloud functions deploy data_ingestion_function --region asia-east1 \
+        --runtime python311 \
+        --trigger-http \
+        --allow-unauthenticated \
+        --entry-point main \
+        --gen2 
+    ```
+2. Continuous deployment
+As pushing new commit to remote repository, there is trigger to continuous deployment with via Cloud Build. More setting please refer to `cloudbuild.yaml`
 
 ## Demo with postman
 1. Sent ingestion request by postman.
     ![header](image/data_ingestion_function_postman_header.png)
     ![body](image/data_ingestion_function_postman_body.png)
-2. Checked the output table after the ingestion is done.
+2. Checked the output table after the ingestion was done.
     ![output](image/data_ingestion_function_output.png)
